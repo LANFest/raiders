@@ -1,0 +1,31 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+#reference:../../packages/Nez.0.9.2/lib/Nez.dll
+/reference:../../packages/Nez/Nez.Portable/bin/Debug/Nez.dll
+/reference:../../packages/Nez.PipelineImporter.0.9.2/tools/Nez.PipelineImporter.dll
+/reference:../../packages/Nez.PipelineImporter.0.9.2/tools/Newtonsoft.Json.dll
+/reference:../../packages/Nez.PipelineImporter.0.9.2/tools/Ionic.ZLib.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Shared/moon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shared/moon.png

@@ -1,0 +1,13 @@
+﻿
+
+
+namespace Nez
+{
+    class Content
+    {
+
+    }
+}
+
+
+
