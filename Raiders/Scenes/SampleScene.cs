@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
+using MG = Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Nez.UI;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +13,7 @@ namespace Raiders.Scenes
     /// this entire class is one big sweet hack job to make adding samples easier. An exceptional hack is made so that we can render small
     /// pixel art scenes pixel perfect and still display our UI at a reasonable size.
     /// </summary>
-    public abstract class SampleScene : Scene, IFinalRenderDelegate
+    public abstract class SampleScene : Scene, Nez.IFinalRenderDelegate
     {
         public const int SCREEN_SPACE_RENDER_LAYER = 999;
         public UICanvas canvas;
@@ -65,25 +65,25 @@ namespace Raiders.Scenes
             _table = canvas.stage.addElement(new Table());
             _table.setFillParent(true).right().top();
 
-            var topButtonStyle = new TextButtonStyle(new PrimitiveDrawable(Color.Black, 10f), new PrimitiveDrawable(Color.Yellow), new PrimitiveDrawable(Color.DarkSlateBlue))
+            var topButtonStyle = new TextButtonStyle(new PrimitiveDrawable(MG.Color.Black, 10f), new PrimitiveDrawable(MG.Color.Yellow), new PrimitiveDrawable(MG.Color.DarkSlateBlue))
             {
-                downFontColor = Color.Black
+                downFontColor = MG.Color.Black
             };
             _table.add(new TextButton("Toggle Scene List", topButtonStyle)).setFillX().setMinHeight(30).getElement<Button>().onClicked += onToggleSceneListClicked;
 
             _table.row().setPadTop(10);
             var checkbox = _table.add(new CheckBox("Debug Render", new CheckBoxStyle
             {
-                checkboxOn = new PrimitiveDrawable(30, Color.Green),
-                checkboxOff = new PrimitiveDrawable(30, new Color(0x00, 0x3c, 0xe7, 0xff))
+                checkboxOn = new PrimitiveDrawable(30, MG.Color.Green),
+                checkboxOff = new PrimitiveDrawable(30, new MG.Color(0x00, 0x3c, 0xe7, 0xff))
             })).getElement<CheckBox>();
             checkbox.onChanged += enabled => Core.debugRenderEnabled = enabled;
             checkbox.isChecked = Core.debugRenderEnabled;
             _table.row().setPadTop(30);
 
-            var buttonStyle = new TextButtonStyle(new PrimitiveDrawable(new Color(78, 91, 98), 10f), new PrimitiveDrawable(new Color(244, 23, 135)), new PrimitiveDrawable(new Color(168, 207, 115)))
+            var buttonStyle = new TextButtonStyle(new PrimitiveDrawable(new MG.Color(78, 91, 98), 10f), new PrimitiveDrawable(new MG.Color(244, 23, 135)), new PrimitiveDrawable(new MG.Color(168, 207, 115)))
             {
-                downFontColor = Color.Black
+                downFontColor = MG.Color.Black
             };
 
             // find every Scene with the SampleSceneAttribute and create a button for each one
@@ -113,11 +113,10 @@ namespace Raiders.Scenes
             }
         }
 
-
         void addInstructionText(string text)
         {
             var instructionsEntity = createEntity("instructions");
-            instructionsEntity.addComponent(new Text(Graphics.instance.bitmapFont, text, new Vector2(10, 10), Color.White))
+            instructionsEntity.addComponent(new Text(Graphics.instance.bitmapFont, text, new MG.Vector2(10, 10), MG.Color.White))
                 .setRenderLayer(SCREEN_SPACE_RENDER_LAYER);
         }
 
@@ -131,10 +130,7 @@ namespace Raiders.Scenes
 
         #region IFinalRenderDelegate
 
-        public Scene scene { get; set; }
-
-        public void onAddedToScene()
-        { }
+        public void onAddedToScene(Nez.Scene scene) { }
 
 
         public void onSceneBackBufferSizeChanged(int newWidth, int newHeight)
@@ -143,26 +139,16 @@ namespace Raiders.Scenes
         }
 
 
-        public void handleFinalRender(Color letterboxColor, Microsoft.Xna.Framework.Graphics.RenderTarget2D source, Rectangle finalRenderDestinationRect, Microsoft.Xna.Framework.Graphics.SamplerState samplerState)
+        public void handleFinalRender(MG.Graphics.RenderTarget2D finalRenderTarget, MG.Color letterboxColor, MG.Graphics.RenderTarget2D source, MG.Rectangle finalRenderDestinationRect, MG.Graphics.SamplerState samplerState)
         {
-            Core.graphicsDevice.SetRenderTarget(null);
-            Core.graphicsDevice.Clear(letterboxColor);
-            Graphics.instance.batcher.begin(BlendState.Opaque, samplerState, DepthStencilState.None, RasterizerState.CullNone, null);
-            Graphics.instance.batcher.draw(source, finalRenderDestinationRect, Color.White);
-            Graphics.instance.batcher.end();
+            Nez.Core.graphicsDevice.SetRenderTarget(null);
+            Nez.Core.graphicsDevice.Clear(letterboxColor);
+            Nez.Graphics.instance.batcher.begin(BlendState.Opaque, samplerState, DepthStencilState.None, RasterizerState.CullNone, null);
+            Nez.Graphics.instance.batcher.draw(source, finalRenderDestinationRect, MG.Color.White);
+            Nez.Graphics.instance.batcher.end();
 
-            _screenSpaceRenderer.render(scene);
+            _screenSpaceRenderer.render(this);
         }
-
-        void IFinalRenderDelegate.onAddedToScene(Scene scene) {
-
-        }
-
-        void IFinalRenderDelegate.onSceneBackBufferSizeChanged(int newWidth, int newHeight) { }
-
-        void IFinalRenderDelegate.handleFinalRender(RenderTarget2D finalRenderTarget, Color letterboxColor, RenderTarget2D source, Rectangle finalRenderDestinationRect, SamplerState samplerState) { }
-
-        void IFinalRenderDelegate.unload() { }
 
         #endregion
 

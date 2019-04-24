@@ -31,7 +31,7 @@ namespace Raiders
 
             Window.AllowUserResizing = true;
 
-            scene = new Scenes.BasicScene();
+            scene = new Scenes.Game.GameMap();
         }
 
         /// <summary>
@@ -40,6 +40,7 @@ namespace Raiders
         /// </summary>
         protected override void LoadContent()
         {
+            base.LoadContent();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -52,6 +53,7 @@ namespace Raiders
         /// </summary>
         protected override void UnloadContent()
         {
+            base.UnloadContent();
             // TODO: Unload any non ContentManager content here
         }
 
@@ -66,7 +68,6 @@ namespace Raiders
                 Exit();
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 

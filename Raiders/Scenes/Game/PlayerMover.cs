@@ -3,9 +3,9 @@ using MG = Microsoft.Xna.Framework;
 
 namespace Raiders.Scenes.Game
 {
-    public class PlayerMover : Nez.Component, MG.IUpdateable
+    public class PlayerMover : Nez.Component, Nez.IUpdatable
     {
-        float _speed = 800f;
+        float _speed = 200f;
         MG.Vector2 _direction;
 
         Nez.Mover _mover;
@@ -13,10 +13,33 @@ namespace Raiders.Scenes.Game
 
         public bool Enabled => true;
 
-        public int UpdateOrder => 0;
+        public int UpdateOrder => 1;
 
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
+        public event EventHandler<EventArgs> EnabledChanged
+        {
+            add
+            {
+                
+            }
+
+            remove
+            {
+                
+            }
+        }
+
+        public event EventHandler<EventArgs> UpdateOrderChanged
+        {
+            add
+            {
+                
+            }
+
+            remove
+            {
+                
+            }
+        }
 
         public override void onAddedToEntity()
         {
@@ -24,33 +47,33 @@ namespace Raiders.Scenes.Game
 
             _sprite = entity.getComponent<Nez.Sprites.Sprite>();
             _mover = new Nez.Mover();
-            entity.addComponent(_mover);
+            this.entity.addComponent(_mover);
         }
 
-        void MG.IUpdateable.Update(MG.GameTime gameTime)
+        public void update()
         {
-            string gtstr = gameTime.ToString();
-            Nez.Debug.log(gtstr);
             entity.scene.camera.position = new MG.Vector2(entity.scene.sceneRenderTargetSize.X / 2, entity.scene.sceneRenderTargetSize.Y / 2);
-            if (Nez.Input.isKeyPressed(MG.Input.Keys.A))
+            _direction.X = 0f;
+            _direction.Y = 0f;
+            if (Nez.Input.isKeyDown(MG.Input.Keys.A))
             {
                 _direction.X = -1f;
                 _sprite.flipY = false;
                 entity.rotationDegrees = 90f;
             }
-            else if (Nez.Input.isKeyPressed(MG.Input.Keys.D))
+            if (Nez.Input.isKeyDown(MG.Input.Keys.D))
             {
                 _direction.X = 1f;
                 _sprite.flipY = false;
                 entity.rotationDegrees = -90f;
             }
-            else if (Nez.Input.isKeyPressed(MG.Input.Keys.W))
+            if (Nez.Input.isKeyDown(MG.Input.Keys.W))
             {
                 _direction.Y = -1f;
                 _sprite.flipY = true;
                 entity.rotationDegrees = 0f;
             }
-            else if (Nez.Input.isKeyPressed(MG.Input.Keys.S))
+            if (Nez.Input.isKeyDown(MG.Input.Keys.S))
             {
                 _direction.Y = 1f;
                 _sprite.flipY = false;
@@ -64,5 +87,6 @@ namespace Raiders.Scenes.Game
                 _mover.move(movement, out collision);
             }
         }
+        
     }
 }

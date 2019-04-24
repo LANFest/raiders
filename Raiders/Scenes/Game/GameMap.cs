@@ -13,8 +13,8 @@ namespace Raiders.Scenes.Game
 
             var moonTex = content.Load<MG.Graphics.Texture2D>(Content.Shared.moon);
 
-            var playerEntity = createEntity("player");
-            playerEntity.transform.position = new MG.Vector2(50, 50);
+            var playerEntity = this.createEntity("player");
+            playerEntity.transform.position = new MG.Vector2(250, 250);
             playerEntity.addComponent(new Nez.Sprites.Sprite(moonTex));
             playerEntity.addComponent(new PlayerMover());
         }
