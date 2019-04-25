@@ -1,0 +1,15 @@
+{
+    "dependencies": {
+      "MonoGame": {},
+      "Nez": {}
+    },
+    "frameworks": {
+        ".NETPortable,Version=v4.5,Profile=Profile111": {}
+    },
+    "supports": {
+      "Windows 7": {},
+      "Windows 8": {},
+      "Windows 10": {}
+    }
+}
+

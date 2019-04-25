@@ -47,8 +47,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\BasicScene.cs" />
+    <Compile Include="Scenes\Game\PerlinNoiseGenerator.cs" />
     <Compile Include="Scenes\Game\GameMap.cs" />
+    <Compile Include="Scenes\Game\PlayerMining.cs" />
     <Compile Include="Scenes\Game\PlayerMover.cs" />
+    <Compile Include="Scenes\Menus\Main.cs" />
     <Compile Include="Scenes\SampleScene.cs" />
     <Compile Include="Shared\ContentPathGenerator.cs" />
     <Compile Include="Shared\ContentPathGenerator1.cs">
@@ -124,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Shared\" />
-    <Folder Include="Scenes\Menus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Shared\ContentPathGenerator.tt">

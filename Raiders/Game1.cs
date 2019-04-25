@@ -32,6 +32,7 @@ namespace Raiders
             Window.AllowUserResizing = true;
 
             scene = new Scenes.Game.GameMap();
+            //scene = new Scenes.Menus.Main();
         }
 
         /// <summary>

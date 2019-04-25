@@ -17,6 +17,7 @@ namespace Raiders.Scenes.Game
             playerEntity.transform.position = new MG.Vector2(250, 250);
             playerEntity.addComponent(new Nez.Sprites.Sprite(moonTex));
             playerEntity.addComponent(new PlayerMover());
+            playerEntity.addComponent(new PlayerMining());
         }
     }
 }
