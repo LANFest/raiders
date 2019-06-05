@@ -1,4 +1,5 @@
 ﻿using MG = Microsoft.Xna.Framework;
+using Nez.Tiled;
 
 namespace Raiders.Scenes.Game
 {
@@ -11,7 +12,13 @@ namespace Raiders.Scenes.Game
         {
             base.initialize();
 
+            var defaultMap = content.Load<TiledMap>(Content.Maps.defaultmap);
             var moonTex = content.Load<MG.Graphics.Texture2D>(Content.Shared.moon);
+
+            var mapEntity = createEntity("map");
+            var mapComponent = new Nez.TiledMapComponent(defaultMap);
+            mapComponent.setRenderLayer(20);
+            mapEntity.addComponent(mapComponent);
 
             var playerEntity = this.createEntity("player");
             playerEntity.transform.position = new MG.Vector2(250, 250);

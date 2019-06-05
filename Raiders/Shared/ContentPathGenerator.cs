@@ -8,5 +8,10 @@
             public const string moon = @"Shared/moon";
         }
 
+        public static class Maps
+        {
+            public const string defaultmap = @"Maps/defaultmap";
+        }
+
     }
 }

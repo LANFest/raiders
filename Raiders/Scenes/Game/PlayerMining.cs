@@ -6,36 +6,75 @@ namespace Raiders.Scenes.Game
     {
         public bool Enabled = true;
         public Nez.Particles.ParticleEmitter emitter;
+        public int UpdateOrder => 1;
+        public int layerDepth = 2;
 
         public override void onAddedToEntity()
         {
             base.onAddedToEntity();
             Nez.Particles.ParticleEmitterConfig emitterConfig = new Nez.Particles.ParticleEmitterConfig
             {
+                angle = 244f,
+                angleVariance = 140f,
+                blendFuncDestination = MG.Graphics.Blend.Zero,
+                blendFuncSource = MG.Graphics.Blend.InverseDestinationColor,
                 duration = 60f,
-                emissionRate = 1f,
-                gravity = new MG.Vector2(0f, 4.9f),
+                emissionRate = 10f,
+                emitterType = Nez.Particles.ParticleEmitterType.Gravity,
+                finishColor = new MG.Color(0, 0, 0, 0),
+                finishColorVariance = new MG.Color(0),
+                finishParticleSize = 65f,
+                finishParticleSizeVariance = 65f,
+                gravity = new MG.Vector2(0f, 490f),
                 maxParticles = 100,
-                simulateInWorldSpace = false,
+                maxRadius = 0f,
+                maxRadiusVariance = 75f,
+                minRadius = 0f,
+                minRadiusVariance = 0f,
+                particleLifespan = 1f,
+                particleLifespanVariance = 0f,
+                radialAcceleration = 0f,
+                radialAccelVariance = 0f,
+                rotatePerSecond = 0f,
+                rotatePerSecondVariance = 150f,
+                rotationEnd = 0f,
+                rotationEndVariance = 0f,
+                rotationStart = 0f,
+                rotationStartVariance = 0f,
+                simulateInWorldSpace = true,
+                sourcePosition = new MG.Vector2(150f, 50f),
+                sourcePositionVariance = new MG.Vector2(0f, 0f),
+                speed = 0f,
+                speedVariance = 190f,
+                startColor = new MG.Color(0.84f, 0.3f, 0f),
+                startColorVariance = new MG.Color(0),
+                startParticleSize = 50f,
+                startParticleSizeVariance = 25f,
                 subtexture = null,
+                tangentialAcceleration = 0f,
+                tangentialAccelVariance = 0f,
             };
-            this.emitter = new Nez.Particles.ParticleEmitter(emitterConfig, false);
+            this.emitter = new Nez.Particles.ParticleEmitter(emitterConfig, true)
+            {
+                enabled = true,
+            };
             this.entity.addComponent(this.emitter);
         }
 
         #region Nez.IUpdatable
         public void update()
         {
+            if (!this.emitter.isPlaying)
+            {
+                this.emitter.play();
+            }
             if (Nez.Input.leftMouseButtonDown)
             {
-                if (Nez.Input.mousePosition.X > 250 && Nez.Input.mousePosition.Y > 250)
-                {
-                    this.emitter.play();
-                }
+                this.emitter.resumeEmission();
             }
             else
             {
-                this.emitter.stop();
+                this.emitter.pauseEmission();
             }
         }
         #endregion

@@ -15,6 +15,8 @@ namespace Raiders.Scenes.Game
 
         public int UpdateOrder => 1;
 
+        public int layerDepth = 5;
+
         public event EventHandler<EventArgs> EnabledChanged
         {
             add
@@ -46,13 +48,14 @@ namespace Raiders.Scenes.Game
             base.onAddedToEntity();
 
             _sprite = entity.getComponent<Nez.Sprites.Sprite>();
+            _sprite.layerDepth = 5;
             _mover = new Nez.Mover();
             this.entity.addComponent(_mover);
         }
 
         public void update()
         {
-            entity.scene.camera.position = new MG.Vector2(entity.scene.sceneRenderTargetSize.X / 2, entity.scene.sceneRenderTargetSize.Y / 2);
+            entity.scene.camera.position = entity.position;
             _direction.X = 0f;
             _direction.Y = 0f;
             if (Nez.Input.isKeyDown(MG.Input.Keys.A))
